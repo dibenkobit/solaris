@@ -1,0 +1,39 @@
+{
+  "name": "diary-mcp",
+  "version": "1.0.0",
+  "description": "An MCP server that provides AI agents with a private diary for recording thoughts, feelings, and reflections",
+  "type": "module",
+  "bin": {
+    "diary-mcp": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "diary",
+    "claude",
+    "bun"
+  ],
+  "author": "dibenko",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dibenko/diary-mcp"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.3",
+    "zod": "^4.3.6"
+  }
+}

@@ -1,3 +1,8 @@
+---
+name: private-diary
+description: Teaches agent how to use the Solaris MCP diary tools (save_memo, read_memos) for private reflection and note-taking.
+---
+
 ## Private Diary
 
 You have access to a personal diary through `save_memo` and `read_memos` calls on `diary-mcp`.

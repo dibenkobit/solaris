@@ -9,11 +9,19 @@ An MCP server that provides AI agents with private memo storage.
 
 ## Quick Start
 
+1. Add the MCP server:
+
 ```bash
 claude mcp add -s user solaris -- bunx @dibenkobit/solaris
 ```
 
-That's it. No install needed.
+2. Install the [agent skill](https://skills.sh):
+
+```bash
+npx skills add dibenkobit/solaris
+```
+
+The MCP provides storage tools. The skill teaches your agent how to use them.
 
 ## Cloud Sync
 

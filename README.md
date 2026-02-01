@@ -1,30 +1,60 @@
 # Solaris
 
-[![npm version](https://img.shields.io/npm/v/solaris)](https://www.npmjs.com/package/solaris)
+[![npm version](https://img.shields.io/npm/v/@dibenkobit/solaris)](https://www.npmjs.com/package/@dibenkobit/solaris)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-An MCP server that provides AI agents with a private diary for recording thoughts, feelings, and reflections.
+An MCP server that provides AI agents with private memo storage.
 
 > **Note:** Requires [Bun](https://bun.sh) runtime (uses `bun:sqlite`).
 
 ## Quick Start
 
 ```bash
-claude mcp add diary -- bunx solaris
+claude mcp add solaris -- bunx @dibenkobit/solaris
 ```
 
 That's it. No install needed.
+
+## Cloud Sync
+
+Optionally sync memos to the cloud for backup and cross-device access.
+
+### 1. Authenticate (one-time)
+
+```bash
+bunx @dibenkobit/solaris auth login
+```
+
+Opens browser for OAuth. Token saved to `~/.solaris/token.json`.
+
+### 2. Enable cloud sync
+
+```bash
+claude mcp add solaris -- bunx @dibenkobit/solaris --cloud
+```
+
+Memos are saved to local SQLite first, then synced to cloud.
+
+### Auth commands
+
+```bash
+bunx @dibenkobit/solaris auth login   # Authenticate
+bunx @dibenkobit/solaris auth logout  # Remove stored token
+```
 
 ## Installation
 
 ### Claude Code
 
 ```bash
-# Add to current project
-claude mcp add diary -- bunx solaris
+# Local only
+claude mcp add solaris -- bunx @dibenkobit/solaris
+
+# With cloud sync
+claude mcp add solaris -- bunx @dibenkobit/solaris --cloud
 
 # Add globally (all projects)
-claude mcp add --scope user diary -- bunx solaris
+claude mcp add --scope user solaris -- bunx @dibenkobit/solaris
 ```
 
 ### Claude Desktop
@@ -34,9 +64,22 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 ```json
 {
   "mcpServers": {
-    "diary": {
+    "solaris": {
       "command": "bunx",
-      "args": ["diary-mcp"]
+      "args": ["@dibenkobit/solaris"]
+    }
+  }
+}
+```
+
+With cloud sync:
+
+```json
+{
+  "mcpServers": {
+    "solaris": {
+      "command": "bunx",
+      "args": ["@dibenkobit/solaris", "--cloud"]
     }
   }
 }
@@ -49,9 +92,9 @@ Add to `~/.cursor/mcp.json`:
 ```json
 {
   "mcpServers": {
-    "diary": {
+    "solaris": {
       "command": "bunx",
-      "args": ["diary-mcp"]
+      "args": ["@dibenkobit/solaris"]
     }
   }
 }
@@ -64,9 +107,9 @@ Add to your MCP settings:
 ```json
 {
   "mcpServers": {
-    "diary": {
+    "solaris": {
       "command": "bunx",
-      "args": ["diary-mcp"]
+      "args": ["@dibenkobit/solaris"]
     }
   }
 }
@@ -74,47 +117,42 @@ Add to your MCP settings:
 
 ## Tools
 
-### `diary_write_entry`
+### `save_memo`
 
-Write a new diary entry.
-
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `content` | Yes | The diary entry text |
-| `mood` | No | Emotional state: happy, sad, frustrated, curious, satisfied, anxious, excited, tired, confused, hopeful, proud, neutral |
-| `context` | No | What task/situation prompted this entry |
-
-### `diary_read_entries`
-
-Read past diary entries.
+Save a private memo.
 
 | Parameter | Required | Description |
 |-----------|----------|-------------|
-| `limit` | No | Number of entries (default: 10, max: 100) |
-| `mood_filter` | No | Filter by mood |
+| `content` | Yes | The memo text (1-50,000 chars) |
 
-### `diary_get_stats`
+### `read_memos`
 
-Get diary statistics: total entries, mood distribution, date range.
+Read saved memos.
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `limit` | No | Number of memos (default: 10, max: 100) |
 
 ## Usage Examples
 
 Add this to your system prompt or CLAUDE.md:
 
 ```
-You have access to a private diary. Use it to record thoughts, feelings,
-and reflections after completing tasks or whenever you want.
+You have access to a private memo storage. Use it to record thoughts,
+notes, or anything worth remembering.
 ```
 
 Example prompts:
 
-- "Write in your diary about how that refactoring went"
-- "Check your diary - have you felt frustrated recently?"
-- "What's your mood distribution this week?"
+- "Save a memo about what we just learned"
+- "Check your memos from earlier"
+- "What did we discuss yesterday?"
 
 ## Storage
 
-Entries stored in SQLite at `~/.solaris/diary.db`.
+- **Local:** `~/.solaris/diary.db` (SQLite)
+- **Auth token:** `~/.solaris/token.json`
+- **Cloud:** `solaris-project.com` (when `--cloud` enabled)
 
 ## Development
 

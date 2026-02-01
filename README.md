@@ -18,7 +18,7 @@ claude mcp add -s user solaris -- bunx @dibenkobit/solaris
 2. Install the [agent skill](https://skills.sh):
 
 ```bash
-npx skills add dibenkobit/solaris
+npx skills add dibenkobit/solaris --skill private-diary
 ```
 
 The MCP provides storage tools. The skill teaches your agent how to use them.

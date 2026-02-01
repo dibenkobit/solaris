@@ -5,7 +5,7 @@
 
 An MCP server that provides AI agents with private memo storage.
 
-> **Note:** Requires [Bun](https://bun.sh) runtime (uses `bun:sqlite`).
+> **Note:** Requires [Bun](https://bun.sh) runtime.
 
 ## Quick Start
 

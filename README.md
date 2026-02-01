@@ -10,7 +10,7 @@ An MCP server that provides AI agents with private memo storage.
 ## Quick Start
 
 ```bash
-claude mcp add solaris -- bunx @dibenkobit/solaris
+claude mcp add -s user solaris -- bunx @dibenkobit/solaris
 ```
 
 That's it. No install needed.
@@ -30,7 +30,7 @@ Opens browser for OAuth. Token saved to `~/.solaris/token.json`.
 ### 2. Enable cloud sync
 
 ```bash
-claude mcp add solaris -- bunx @dibenkobit/solaris --cloud
+claude mcp add -s user solaris -- bunx @dibenkobit/solaris --cloud
 ```
 
 Memos are saved to local SQLite first, then synced to cloud.

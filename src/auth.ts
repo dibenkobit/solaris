@@ -1,11 +1,5 @@
-import { homedir } from "os";
-import { join } from "path";
 import { mkdirSync, existsSync } from "fs";
-
-const AUTH_URL = "https://solaris-project.com/oauth/device";
-const TOKEN_URL = "https://solaris-project.com/oauth/token";
-const SOLARIS_DIR = join(homedir(), ".solaris");
-const TOKEN_PATH = join(SOLARIS_DIR, "token.json");
+import { AUTH_URL, TOKEN_URL, SOLARIS_DIR, TOKEN_PATH } from "./shared/constants";
 
 interface DeviceCodeResponse {
   device_code: string;
@@ -37,7 +31,7 @@ export async function login(): Promise<void> {
     throw new Error(`Failed to request device code: ${deviceResponse.status}`);
   }
 
-  const deviceData: DeviceCodeResponse = await deviceResponse.json();
+  const deviceData = (await deviceResponse.json()) as DeviceCodeResponse;
   const { device_code, user_code, verification_uri, interval } = deviceData;
 
   // 2. Show user the code and open browser
@@ -97,11 +91,11 @@ async function pollForToken(
     });
 
     if (response.ok) {
-      const data: TokenResponse = await response.json();
+      const data = (await response.json()) as TokenResponse;
       return data.access_token;
     }
 
-    const error = await response.json();
+    const error = (await response.json()) as { error: string };
 
     if (error.error === "authorization_pending") {
       // Keep polling

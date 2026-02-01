@@ -1,19 +1,15 @@
 import { Database } from "bun:sqlite";
-import { homedir } from "os";
-import { join } from "path";
 import { mkdirSync, existsSync } from "fs";
-import type { Memo } from "./types";
-
-const DB_DIR = join(homedir(), ".solaris");
-const DB_PATH = join(DB_DIR, "diary.db");
+import type { Memo } from "./shared/types";
+import { SOLARIS_DIR, DB_PATH } from "./shared/constants";
 
 let db: Database | null = null;
 
 export function initDatabase(): Database {
   if (db) return db;
 
-  if (!existsSync(DB_DIR)) {
-    mkdirSync(DB_DIR, { recursive: true });
+  if (!existsSync(SOLARIS_DIR)) {
+    mkdirSync(SOLARIS_DIR, { recursive: true });
   }
 
   db = new Database(DB_PATH);

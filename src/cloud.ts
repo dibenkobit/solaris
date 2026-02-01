@@ -1,7 +1,6 @@
 import { getToken } from "./auth";
-import type { Memo } from "./types";
-
-const API_URL = "https://solaris-project.com/api/v1/memo";
+import type { Memo } from "./shared/types";
+import { MEMO_API_URL } from "./shared/constants";
 
 export async function syncToCloud(memo: Memo): Promise<void> {
   const token = await getToken();
@@ -12,7 +11,7 @@ export async function syncToCloud(memo: Memo): Promise<void> {
   }
 
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(MEMO_API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

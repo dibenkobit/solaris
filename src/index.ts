@@ -3,6 +3,28 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { saveMemoSchema, readMemosSchema } from "./schemas";
 import { saveMemo, readMemos, initDatabase } from "./database";
+import { login, logout } from "./auth";
+import { syncToCloud } from "./cloud";
+
+// Parse CLI arguments
+const args = Bun.argv.slice(2);
+
+// Handle auth subcommands
+if (args[0] === "auth") {
+  if (args[1] === "login") {
+    await login();
+    process.exit(0);
+  } else if (args[1] === "logout") {
+    await logout();
+    process.exit(0);
+  } else {
+    console.log("Usage: solaris auth <login|logout>");
+    process.exit(1);
+  }
+}
+
+// Parse --cloud flag for MCP server mode
+const cloudMode = args.includes("--cloud");
 
 const server = new McpServer({
   name: "solaris",
@@ -19,6 +41,11 @@ server.registerTool(
   async (args) => {
     const parsed = saveMemoSchema.parse(args);
     const memo = saveMemo(parsed.content);
+
+    // Sync to cloud if enabled (non-blocking)
+    if (cloudMode) {
+      syncToCloud(memo).catch(() => {});
+    }
 
     return {
       content: [

@@ -1,6 +1,6 @@
 {
   "name": "@dibenkobit/solaris",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "An MCP server that provides AI agents with private memo storage",
   "type": "module",
   "bin": {

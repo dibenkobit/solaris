@@ -4,7 +4,7 @@ import { join } from "path";
 import { mkdirSync, existsSync } from "fs";
 import type { DiaryEntry, DiaryStats } from "./types";
 
-const DB_DIR = join(homedir(), ".diary-mcp");
+const DB_DIR = join(homedir(), ".solaris");
 const DB_PATH = join(DB_DIR, "diary.db");
 
 let db: Database | null = null;

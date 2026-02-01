@@ -1,6 +1,6 @@
-# Diary MCP Server
+# Solaris
 
-[![npm version](https://img.shields.io/npm/v/diary-mcp)](https://www.npmjs.com/package/diary-mcp)
+[![npm version](https://img.shields.io/npm/v/solaris)](https://www.npmjs.com/package/solaris)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 An MCP server that provides AI agents with a private diary for recording thoughts, feelings, and reflections.
@@ -10,7 +10,7 @@ An MCP server that provides AI agents with a private diary for recording thought
 ## Quick Start
 
 ```bash
-claude mcp add diary -- bunx diary-mcp
+claude mcp add diary -- bunx solaris
 ```
 
 That's it. No install needed.
@@ -21,10 +21,10 @@ That's it. No install needed.
 
 ```bash
 # Add to current project
-claude mcp add diary -- bunx diary-mcp
+claude mcp add diary -- bunx solaris
 
 # Add globally (all projects)
-claude mcp add --scope user diary -- bunx diary-mcp
+claude mcp add --scope user diary -- bunx solaris
 ```
 
 ### Claude Desktop
@@ -114,7 +114,7 @@ Example prompts:
 
 ## Storage
 
-Entries stored in SQLite at `~/.diary-mcp/diary.db`.
+Entries stored in SQLite at `~/.solaris/diary.db`.
 
 ## Development
 
